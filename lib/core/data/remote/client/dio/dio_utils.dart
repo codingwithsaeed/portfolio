@@ -16,7 +16,7 @@ abstract final class DioWrapper {
       if (e.response != null) {
         return ApiResponse(statusCode: e.response!.statusCode!, body: e.response!.data);
       }
-      return ApiResponse(statusCode: 500, body: e.stackTrace);
+      return ApiResponse(statusCode: 500, body: e.type.toString());
     }
   }
 }

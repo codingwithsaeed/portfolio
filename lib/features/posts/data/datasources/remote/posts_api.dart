@@ -7,9 +7,7 @@ abstract interface class PostsApi {
 class PostsApiImpl implements PostsApi {
   final ApiClient _client;
   const PostsApiImpl(this._client);
-  
+
   @override
-  Future<ApiResponse> getPosts() {
-    return _client.get(Endpoints.posts);
-  }
+  Future<ApiResponse> getPosts() => _client.get(Endpoints.posts);
 }
