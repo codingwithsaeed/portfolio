@@ -17,6 +17,8 @@ dependencies:
   go_router: ^10.1.0
   meta: ^1.9.1
   flutter_adaptive_ui: ^0.8.0+1
+  flutter_screenutil: ^5.9.0
+  url_strategy: ^0.2.0
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +27,21 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: dosis
+      fonts:
+        - asset: assets/fonts/dosis.ttf
+    - family: roboto
+      fonts:
+        - asset: assets/fonts/roboto_slab.ttf
+    - family: vazir
+      fonts:
+        - asset: assets/fonts/vazir_regular.ttf
+    - family: iransans
+      fonts:
+        - asset: assets/fonts/iransans.ttf
+    - family: nastaligh
+      fonts:
+        - asset: assets/fonts/nastaliq_regular.ttf
