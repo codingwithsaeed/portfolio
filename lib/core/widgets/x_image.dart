@@ -10,10 +10,25 @@ class XAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: size ?? 0.2.sw,
-      height: size ?? 0.2.sw,
-      child: CircleAvatar(radius: size ?? 0.2.sw, foregroundImage: (url != null ? NetworkImage(url!) : AssetImage(asset!) as ImageProvider)).center(),
+    return Container(
+      decoration: ShapeDecoration(
+        color: context.onPrimary,
+        shape: const CircleBorder(),
+      ),
+      padding: EdgeInsets.all(2.w),
+      child: Container(
+        decoration: ShapeDecoration(
+          color: context.secondary,
+          shape: const CircleBorder(),
+        ),
+        width: size ?? 0.2.sw,
+        height: size ?? 0.2.sw,
+        padding: EdgeInsets.all(2.w),
+        child: CircleAvatar(
+                radius: size ?? 0.2.sw,
+                foregroundImage: (url != null ? NetworkImage(url!) : AssetImage(asset!) as ImageProvider))
+            .center(),
+      ),
     );
   }
 }
