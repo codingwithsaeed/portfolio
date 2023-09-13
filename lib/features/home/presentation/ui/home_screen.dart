@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/assets.dart';
+import 'package:portfolio/core/dimens.dart';
 import 'package:portfolio/core/extensions.dart';
 import 'package:portfolio/core/widgets/x_image.dart';
 
@@ -67,27 +68,17 @@ class HomeScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        XAvatar(asset: Assets.me1, size: 0.3.sw),
-        SizedBox(height: 16.w),
-        Text('Saeed Ahmadi', style: context.titleSmall.copyWith(fontSize: 14.sp)),
-        SizedBox(height: 4.h),
-        Text('Software Engineer | App Developer',
-            style: context.titleSmall.copyWith(color: context.tertiary, fontSize: 12.sp)),
+        XAvatar(asset: Assets.me1, size: 0.2.sw),
+        SizedBox(height: Dimens.mPadding),
+        Text('Saeed Ahmadi', style: context.titleSmall),
+        SizedBox(height: Dimens.xsPadding),
+        Text('Software Engineer | App Developer', style: context.titleSmall.copyWith(color: context.tertiary)),
       ],
     );
   }
 
   Widget _buildDesktop(BuildContext context, Screen screen) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const Spacer(flex: 2),
-        _buildImage(context),
-        const Spacer(),
-        _buildServices(context, screen),
-        const Spacer(flex: 2),
-      ],
-    );
+    return _buildTablet(context, screen);
   }
 
   Widget _buildTablet(BuildContext context, Screen screen) {
@@ -101,19 +92,27 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildHandset(BuildContext context, Screen screen) {
-    return _buildDesktop(context, screen);
+    return Column(
+      children: [
+        const Spacer(),
+        _buildImage(context),
+        SizedBox(height: Dimens.mPadding),
+        _buildServices(context, screen),
+        const Spacer()
+      ],
+    );
   }
 
   Widget _buildServices(BuildContext context, Screen screen) {
     return ListView.separated(
-      padding: EdgeInsets.all(16.w),
-      separatorBuilder: (context, index) => SizedBox(height: 16.w),
+      padding: EdgeInsets.all(Dimens.mPadding),
+      separatorBuilder: (context, index) => SizedBox(height: Dimens.mPadding),
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       itemBuilder: (context, index) {
         final service = services[index];
         return InkWell(
-          radius: 12,
+          radius: Dimens.mPadding,
           child: Container(
             decoration: BoxDecoration(
                 boxShadow: [
@@ -133,16 +132,16 @@ class HomeScreen extends StatelessWidget {
                   ],
                   stops: const [0.0, 0.4, 0.85, 1.0],
                 ),
-                borderRadius: BorderRadius.circular(12)),
+                borderRadius: BorderRadius.circular(Dimens.mPadding)),
             //color: service.backgroundColor ?? context.tertiary,
             child: ListTile(
               style: ListTileStyle.list,
               horizontalTitleGap: 0,
               hoverColor: context.primary,
               splashColor: context.primary,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.mPadding)),
               title: Text(service.title,
-                  style: context.titleSmall.copyWith(color: service.titleColor ?? context.primary, fontSize: 12.sp)),
+                  style: context.titleSmall.copyWith(color: service.titleColor ?? context.primary)),
               leading: Icon(service.icon, color: service.iconColor ?? context.primary),
               onTap: service.onTap,
             ),

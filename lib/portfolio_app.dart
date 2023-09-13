@@ -8,13 +8,20 @@ class PortfolioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(builder: (context, child) {
-      return MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.data,
-        routerConfig: router,
-        
-      );
-    });
+    return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          builder: (context, widget) {
+            ScreenUtil.init(context);
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: Theme(
+                data: AppTheme.data,
+                child: widget!,
+              ),
+            );
+          },
+          routerConfig: router,
+        );
+     
   }
 }

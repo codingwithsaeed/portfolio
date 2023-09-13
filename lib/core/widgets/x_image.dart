@@ -18,7 +18,7 @@ class XAvatar extends StatelessWidget {
       padding: EdgeInsets.all(2.w),
       child: Container(
         decoration: ShapeDecoration(
-          color: context.secondary,
+          color: Colors.amber.shade900,
           shape: const CircleBorder(),
         ),
         width: size ?? 0.2.sw,

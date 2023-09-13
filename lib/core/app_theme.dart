@@ -33,10 +33,10 @@ abstract final class AppTheme {
   }
 }
 
-final _bodyLarge = TextStyle(color: AppTheme.white, fontSize: 18.sp);
-final _bodyMedium = TextStyle(color: AppTheme.white, fontSize: 16.sp);
-final _bodySmall = TextStyle(color: AppTheme.white, fontSize: 14.sp);
+final _bodyLarge = TextStyle(color: AppTheme.white, fontSize: 16.sp);
+final _bodyMedium = TextStyle(color: AppTheme.white, fontSize: 14.sp);
+final _bodySmall = TextStyle(color: AppTheme.white, fontSize: 12.sp);
 
-final _titleLarge = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 18.sp);
-final _titleMedium = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 16.sp);
-final _titleSmall = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 14.sp);
+final _titleLarge = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 16.sp);
+final _titleMedium = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 14.sp);
+final _titleSmall = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 12.sp);
