@@ -6,6 +6,8 @@ import 'package:portfolio/core/dimens.dart';
 import 'package:portfolio/core/extensions.dart';
 import 'package:portfolio/core/widgets/x_image.dart';
 
+import '../../../../core/widgets/x_text.dart';
+
 class HomeServiceModel {
   final String title;
   final IconData icon;
@@ -45,6 +47,11 @@ List<HomeServiceModel> services = [
     icon: Icons.phone_android_rounded,
     onTap: () {},
   ),
+  HomeServiceModel(
+    title: 'Services',
+    icon: Icons.design_services_rounded,
+    onTap: () {},
+  ),
 ];
 
 class HomeScreen extends StatelessWidget {
@@ -68,11 +75,10 @@ class HomeScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        XAvatar(asset: Assets.me1, size: 0.2.sw),
-        SizedBox(height: Dimens.mPadding),
-        Text('Saeed Ahmadi', style: context.titleSmall),
-        SizedBox(height: Dimens.xsPadding),
-        Text('Software Engineer | App Developer', style: context.titleSmall.copyWith(color: context.tertiary)),
+        XAvatar(asset: Assets.me1, size: 0.2.sh),
+        const SizedBox(height: Dimens.xsPadding),
+        XText('Saeed Ahmadi', style: context.titleLarge),
+        XText('Software Engineer | App Developer', color: context.tertiary),
       ],
     );
   }
@@ -94,25 +100,25 @@ class HomeScreen extends StatelessWidget {
   Widget _buildHandset(BuildContext context, Screen screen) {
     return Column(
       children: [
-        const Spacer(),
+        const Spacer(flex: 2),
         _buildImage(context),
-        SizedBox(height: Dimens.mPadding),
+        const Spacer(),
         _buildServices(context, screen),
-        const Spacer()
+        const Spacer(flex: 2),
       ],
     );
   }
 
   Widget _buildServices(BuildContext context, Screen screen) {
     return ListView.separated(
-      padding: EdgeInsets.all(Dimens.mPadding),
-      separatorBuilder: (context, index) => SizedBox(height: Dimens.mPadding),
+      padding: const EdgeInsets.all(Dimens.sPadding),
+      separatorBuilder: (context, index) => const SizedBox(height: Dimens.sPadding),
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       itemBuilder: (context, index) {
         final service = services[index];
         return InkWell(
-          radius: Dimens.mPadding,
+          radius: Dimens.sPadding,
           child: Container(
             decoration: BoxDecoration(
                 boxShadow: [
@@ -132,16 +138,18 @@ class HomeScreen extends StatelessWidget {
                   ],
                   stops: const [0.0, 0.4, 0.85, 1.0],
                 ),
-                borderRadius: BorderRadius.circular(Dimens.mPadding)),
+                borderRadius: BorderRadius.circular(Dimens.sPadding)),
             //color: service.backgroundColor ?? context.tertiary,
             child: ListTile(
               style: ListTileStyle.list,
               horizontalTitleGap: 0,
               hoverColor: context.primary,
               splashColor: context.primary,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.mPadding)),
-              title: Text(service.title,
-                  style: context.titleSmall.copyWith(color: service.titleColor ?? context.primary)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.sPadding)),
+              title: XText(
+                service.title,
+                color: service.titleColor ?? context.primary,
+              ),
               leading: Icon(service.icon, color: service.iconColor ?? context.primary),
               onTap: service.onTap,
             ),

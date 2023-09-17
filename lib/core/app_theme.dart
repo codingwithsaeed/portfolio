@@ -21,7 +21,7 @@ abstract final class AppTheme {
         tertiary: secondaryTextColor,
       ),
       scaffoldBackgroundColor: primaryColor,
-      textTheme: TextTheme(
+      textTheme:  TextTheme(
         bodyLarge: _bodyLarge,
         bodyMedium: _bodyMedium,
         bodySmall: _bodySmall,
@@ -33,10 +33,10 @@ abstract final class AppTheme {
   }
 }
 
-final _bodyLarge = TextStyle(color: AppTheme.white, fontSize: 16.sp);
-final _bodyMedium = TextStyle(color: AppTheme.white, fontSize: 14.sp);
-final _bodySmall = TextStyle(color: AppTheme.white, fontSize: 12.sp);
+final _bodyLarge = TextStyle(color: AppTheme.white, fontSize: 16.spMin);
+final _bodyMedium = TextStyle(color: AppTheme.white, fontSize: 14.spMin);
+final _bodySmall = TextStyle(color: AppTheme.white, fontSize: 13.spMin);
 
-final _titleLarge = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 16.sp);
-final _titleMedium = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 14.sp);
-final _titleSmall = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 12.sp);
+final _titleLarge = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 16.spMin);
+final _titleMedium = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 14.spMin);
+final _titleSmall = TextStyle(color: AppTheme.white, fontWeight: FontWeight.bold, fontSize: 13.spMin);

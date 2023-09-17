@@ -15,20 +15,13 @@ class XAvatar extends StatelessWidget {
         color: context.onPrimary,
         shape: const CircleBorder(),
       ),
-      padding: EdgeInsets.all(2.w),
-      child: Container(
-        decoration: ShapeDecoration(
-          color: Colors.amber.shade900,
-          shape: const CircleBorder(),
-        ),
-        width: size ?? 0.2.sw,
-        height: size ?? 0.2.sw,
-        padding: EdgeInsets.all(2.w),
-        child: CircleAvatar(
-                radius: size ?? 0.2.sw,
-                foregroundImage: (url != null ? NetworkImage(url!) : AssetImage(asset!) as ImageProvider))
-            .center(),
-      ),
+      width: size ?? 0.2.sw,
+      height: size ?? 0.2.sw,
+      padding: EdgeInsets.all(1.w),
+      child: CircleAvatar(
+              radius: size ?? 0.2.sw,
+              foregroundImage: (url != null ? NetworkImage(url!) : AssetImage(asset!) as ImageProvider))
+          .center(),
     );
   }
 }

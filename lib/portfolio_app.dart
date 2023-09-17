@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portfolio/core/extensions.dart';
 import 'core/app_theme.dart';
 import 'router.dart';
 
@@ -8,20 +11,20 @@ class PortfolioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          builder: (context, widget) {
-            ScreenUtil.init(context);
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: Theme(
-                data: AppTheme.data,
+    return ScreenUtilInit(
+        minTextAdapt: true,
+        builder: (context, widget) {
+          return MaterialApp.router(
+            theme: AppTheme.data,
+            debugShowCheckedModeBanner: false,
+            builder: (context, widget) {
+              return MediaQuery(
+                data: context.mediaQuery.copyWith(textScaleFactor: 1.0),
                 child: widget!,
-              ),
-            );
-          },
-          routerConfig: router,
-        );
-     
+              );
+            },
+            routerConfig: router,
+          );
+        });
   }
 }
