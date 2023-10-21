@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/core/extensions.dart';
 import 'core/app_theme.dart';
@@ -9,20 +11,27 @@ class PortfolioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        minTextAdapt: true,
-        builder: (context, widget) {
-          return MaterialApp.router(
-            theme: AppTheme.data,
-            debugShowCheckedModeBanner: false,
-            builder: (context, widget) {
-              return MediaQuery(
-                data: context.mediaQuery.copyWith(textScaleFactor: 1.0),
-                child: widget!,
-              );
-            },
-            routerConfig: router,
-          );
-        });
+    return Breakpoint(
+      child: ScreenUtilInit(
+          designSize: const Size(360, 690),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, child) {
+            return MaterialApp.router(
+              theme: AppTheme.themeData(context),
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              debugShowCheckedModeBanner: false,
+              builder: (context, widget) {
+                return MediaQuery(
+                  data: context.mediaQuery.copyWith(textScaleFactor: 1.0),
+                  child: widget!,
+                );
+              },
+              routerConfig: router,
+            );
+          }),
+    );
   }
 }

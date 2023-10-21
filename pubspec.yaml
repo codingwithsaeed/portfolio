@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: '>=3.1.4 <4.0.0'
 
 dependencies:
   flutter:
@@ -18,8 +18,14 @@ dependencies:
   meta: ^1.9.1
   flutter_adaptive_ui: ^0.8.0+1
   flutter_screenutil: ^5.9.0
-  url_strategy: ^0.2.0
-
+  flutter_web_plugins:
+    sdk: flutter
+  x_framework: 
+    git:
+      url: https://github.com/codingwithsaeed/x_framework.git
+      ref: '4148646'
+  easy_localization: ^3.0.3
+  gradient_borders: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -29,6 +35,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/translations/    
   fonts:
     - family: dosis
       fonts:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:portfolio/core/extensions.dart';
+import 'package:x_framework/x_framework.dart';
 
 class XAvatar extends StatelessWidget {
   final double? size;
@@ -12,7 +12,7 @@ class XAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: ShapeDecoration(
-        color: context.onPrimary,
+        color: context.onPrimaryColor,
         shape: const CircleBorder(),
       ),
       width: size ?? 0.2.sw,

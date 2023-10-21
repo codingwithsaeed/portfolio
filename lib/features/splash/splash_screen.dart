@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:portfolio/core/extensions.dart';
 import 'package:portfolio/core/widgets/x_image.dart';
+import 'package:x_framework/x_framework.dart';
 
 import '../../assets.dart';
 
@@ -31,7 +31,7 @@ class SplashScreen extends StatelessWidget {
             ],
           ),
           const Spacer(flex: 2),
-          CircularProgressIndicator(color: context.onPrimary, strokeWidth: 1.w, strokeCap: StrokeCap.round).center(),
+          CircularProgressIndicator(color: context.onPrimaryColor, strokeWidth: 1.w, strokeCap: StrokeCap.round).center(),
           const Spacer(flex: 1),
         ],
       ),
