@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/assets.dart';
+import 'package:x_framework/x_framework.dart';
 
 abstract final class AppTheme {
   static const primaryColor = Color(0xFF200120);
@@ -17,6 +18,8 @@ abstract final class AppTheme {
       fontFamily: Fonts.dosis.name,
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
+        background: primaryColor,
+        primaryContainer: primaryColor,
         primary: primaryColor,
         onPrimary: white,
         secondary: secondaryColor,
@@ -24,6 +27,55 @@ abstract final class AppTheme {
         onPrimaryContainer: white,
       ),
       scaffoldBackgroundColor: primaryColor,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      useMaterial3: true,
+      appBarTheme: AppBarTheme(
+        backgroundColor: primaryColor,
+        centerTitle: true,
+        actionsIconTheme: IconThemeData(color: white),
+        iconTheme: IconThemeData(color: white),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: grey.withOpacity(0.05),
+        elevation: 0,
+        indicatorColor: secondaryColor,
+        iconTheme: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.selected)) {
+            return IconThemeData(color: white);
+          }
+          return IconThemeData(color: Colors.grey);
+        }),
+        labelTextStyle: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.selected)) {
+            return context.titleMedium.copyWith(
+              color: secondaryColor,
+              fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
+            );
+          }
+          return context.bodyMedium.copyWith(
+            color: Colors.grey,
+            fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
+          );
+        }),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: grey.withOpacity(0.05),
+        elevation: 0,
+        indicatorColor: secondaryColor,
+        selectedIconTheme: const IconThemeData(color: white),
+        unselectedIconTheme: const IconThemeData(color: Colors.grey),
+        selectedLabelTextStyle: context.titleMedium.copyWith(
+          color: secondaryColor,
+          fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
+        ),
+        groupAlignment: 0,
+        useIndicator: true,
+        labelType: NavigationRailLabelType.all,
+        unselectedLabelTextStyle: context.bodyMedium.copyWith(
+          color: Colors.grey,
+          fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
+        ),
+      ),
       textTheme: const TextTheme(
         bodyLarge: _bodyLarge,
         bodyMedium: _bodyMedium,

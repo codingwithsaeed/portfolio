@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/core/widgets/x_image.dart';
+import 'package:portfolio/router.dart';
 import 'package:x_framework/x_framework.dart';
 
 import '../../assets.dart';
@@ -17,7 +18,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Timer(const Duration(seconds: 2), () {
-        context.go('/portfolio');
+        context.goNamed(Routes.portfolio.name);
       });
     });
     return Scaffold(
@@ -31,7 +32,8 @@ class SplashScreen extends StatelessWidget {
             ],
           ),
           const Spacer(flex: 2),
-          CircularProgressIndicator(color: context.onPrimaryColor, strokeWidth: 1.w, strokeCap: StrokeCap.round).center(),
+          CircularProgressIndicator(color: context.onPrimaryColor, strokeWidth: 1.w, strokeCap: StrokeCap.round)
+              .center(),
           const Spacer(flex: 1),
         ],
       ),
