@@ -1,8 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/assets.dart';
+import 'package:portfolio/core/extensions.dart';
 import 'package:x_framework/x_framework.dart';
 
 abstract final class AppTheme {
@@ -14,8 +14,11 @@ abstract final class AppTheme {
   static const grey = Color(0xFFDADADA);
 
   static ThemeData themeData(BuildContext context) {
+    final isMobile = Screen.fromWindow().isHandset;
+    final isTablet = Screen.fromWindow().isTablet;
+
     return ThemeData(
-      fontFamily: Fonts.dosis.name,
+      fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         background: primaryColor,
@@ -29,7 +32,7 @@ abstract final class AppTheme {
       scaffoldBackgroundColor: primaryColor,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       useMaterial3: true,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: primaryColor,
         centerTitle: true,
         actionsIconTheme: IconThemeData(color: white),
@@ -40,21 +43,19 @@ abstract final class AppTheme {
         elevation: 0,
         indicatorColor: secondaryColor,
         iconTheme: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return IconThemeData(color: white);
-          }
-          return IconThemeData(color: Colors.grey);
+          if (states.contains(MaterialState.selected)) return const IconThemeData(color: white);
+          return const IconThemeData(color: Colors.grey);
         }),
         labelTextStyle: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
             return context.titleMedium.copyWith(
               color: secondaryColor,
-              fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
+              fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
             );
           }
           return context.bodyMedium.copyWith(
             color: Colors.grey,
-            fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
+            fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
           );
         }),
       ),
@@ -66,27 +67,29 @@ abstract final class AppTheme {
         unselectedIconTheme: const IconThemeData(color: Colors.grey),
         selectedLabelTextStyle: context.titleMedium.copyWith(
           color: secondaryColor,
-          fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
+          fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
         ),
         groupAlignment: 0,
         useIndicator: true,
         labelType: NavigationRailLabelType.all,
         unselectedLabelTextStyle: context.bodyMedium.copyWith(
           color: Colors.grey,
-          fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
+          fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
         ),
       ),
       textTheme: const TextTheme(
-        bodyLarge: _bodyLarge,
-        bodyMedium: _bodyMedium,
-        bodySmall: _bodySmall,
-        titleLarge: _titleLarge,
-        titleMedium: _titleMedium,
-        titleSmall: _titleSmall,
-      ).apply(
-        fontSizeFactor: Screen.fromWindow().isHandset ? 1.3.sp : 0.7.sp,
-        fontFamily: context.locale == const Locale('fa') ? Fonts.vazir.name : Fonts.dosis.name,
-      ),
+              bodyLarge: _bodyLarge,
+              bodyMedium: _bodyMedium,
+              bodySmall: _bodySmall,
+              titleLarge: _titleLarge,
+              titleMedium: _titleMedium,
+              titleSmall: _titleSmall)
+          .apply(
+              fontSizeFactor: isMobile
+                  ? 1.3.sp
+                  : isTablet
+                      ? 0.7.sp
+                      : 0.5.sp),
     );
   }
 }

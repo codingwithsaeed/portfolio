@@ -234,7 +234,7 @@ class ServiceItem extends StatelessWidget {
               const SizedBox(width: Dimens.sPadding),
               XText(
                 title,
-                style: context.titleMedium,
+                style: Screen.fromWindow().isXSmall ? context.titleMedium : context.titleSmall,
                 color: context.primaryColor,
               ),
             ],

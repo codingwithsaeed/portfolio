@@ -29,7 +29,7 @@ class AboutScreen extends StatelessWidget {
 }
 
 Widget _buildDesktop(BuildContext context, Screen screen) {
-  return Column(
+  return const Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       
@@ -38,7 +38,7 @@ Widget _buildDesktop(BuildContext context, Screen screen) {
 }
 
 Widget _buildTablet(BuildContext context, Screen screen) {
-  return Column(
+  return const Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       
@@ -47,7 +47,7 @@ Widget _buildTablet(BuildContext context, Screen screen) {
 }
 
 Widget _buildHandset(BuildContext context, Screen screen) {
-  return Column(
+  return const Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       

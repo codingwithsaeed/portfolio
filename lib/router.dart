@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:portfolio/features/home/presentation/ui/adaptive_main.dart';
+import 'package:portfolio/features/home/presentation/ui/home_screen.dart';
 import 'features/home/presentation/ui/about_screen.dart';
 import 'features/splash/splash_screen.dart';
 
@@ -20,7 +20,7 @@ final router = GoRouter(
         GoRoute(
           path: 'portfolio',
           name: Routes.portfolio.name,
-          builder: (context, state) => const AdaptiveMainScreen(),
+          builder: (context, state) => const HomeScreen(),
           routes: [
             GoRoute(
               path: 'about',

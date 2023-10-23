@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
-import 'package:portfolio/features/home/presentation/ui/about_screen.dart';
 import 'package:portfolio/features/home/presentation/ui/home_screen.dart';
 import 'package:x_framework/x_framework.dart';
 
