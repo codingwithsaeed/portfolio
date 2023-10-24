@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/assets.dart';
 import 'package:portfolio/core/extensions.dart';
 import 'package:x_framework/x_framework.dart';
@@ -77,19 +76,13 @@ abstract final class AppTheme {
           fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
         ),
       ),
-      textTheme: const TextTheme(
-              bodyLarge: _bodyLarge,
-              bodyMedium: _bodyMedium,
-              bodySmall: _bodySmall,
-              titleLarge: _titleLarge,
-              titleMedium: _titleMedium,
-              titleSmall: _titleSmall)
-          .apply(
-              fontSizeFactor: isMobile
-                  ? 1.3.sp
-                  : isTablet
-                      ? 0.7.sp
-                      : 0.5.sp),
+      textTheme: TextTheme(
+          bodyLarge: _bodyLarge.copyWith(fontSize: Screen.fromContext(context).screenSize.largeFontSize),
+          bodyMedium: _bodyMedium.copyWith(fontSize: Screen.fromContext(context).screenSize.mediumFontSize),
+          bodySmall: _bodySmall.copyWith(fontSize: Screen.fromContext(context).screenSize.smallFontSize),
+          titleLarge: _titleLarge.copyWith(fontSize: Screen.fromContext(context).screenSize.largeFontSize),
+          titleMedium: _titleMedium.copyWith(fontSize: Screen.fromContext(context).screenSize.mediumFontSize),
+          titleSmall: _titleSmall.copyWith(fontSize: Screen.fromContext(context).screenSize.smallFontSize)),
     );
   }
 }

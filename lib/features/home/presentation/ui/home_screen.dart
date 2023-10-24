@@ -74,8 +74,7 @@ class HomeScreen extends StatelessWidget {
       children: [
         XAvatar(asset: Assets.me1, size: 0.2.sh),
         const SizedBox(height: Dimens.xsPadding),
-        XText(TKey.myName.translated,
-            style: context.titleLarge.copyWith(fontSize: Screen.fromContext(context).isHandset ? 19.sp : 12.sp)),
+        XText(TKey.myName.translated, style: context.titleLarge),
         XText(TKey.title.translated, color: context.surfaceColor),
       ],
     );
