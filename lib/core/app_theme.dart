@@ -13,9 +13,6 @@ abstract final class AppTheme {
   static const grey = Color(0xFFDADADA);
 
   static ThemeData themeData(BuildContext context) {
-    final isMobile = Screen.fromWindow().isHandset;
-    final isTablet = Screen.fromWindow().isTablet;
-
     return ThemeData(
       fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
       colorScheme: ColorScheme.fromSeed(
