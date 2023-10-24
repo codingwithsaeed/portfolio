@@ -9,7 +9,7 @@ abstract final class AppTheme {
   static const primaryColor = Color(0xFF200120);
   static const secondaryColor = Color(0xFFFF9900);
   static const white = Color(0xFFFAFAFA);
-  static const secondaryTextColor = Color.fromARGB(255, 209, 174, 209);
+  static const secondaryTextColor = Color.fromARGB(184, 209, 174, 209);
   static const black = Color(0xFF222222);
   static const grey = Color(0xFFDADADA);
 
