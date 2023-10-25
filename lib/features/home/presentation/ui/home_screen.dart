@@ -1,78 +1,32 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:gradient_borders/gradient_borders.dart';
 import 'package:portfolio/assets.dart';
 import 'package:portfolio/core/dimens.dart';
 import 'package:portfolio/core/extensions.dart';
 import 'package:portfolio/core/widgets/x_image.dart';
-import 'package:portfolio/router.dart';
+import 'package:portfolio/features/home/domain/entities/home_service_model.dart';
+import 'package:portfolio/features/home/presentation/store/home_ui_store.dart';
 import 'package:x_framework/x_framework.dart';
 
-class HomeServiceModel {
-  final String title;
-  final IconData icon;
-  final Function(BuildContext context) onTap;
-
-  HomeServiceModel({
-    required this.title,
-    required this.icon,
-    required this.onTap,
-  });
-}
-
-List<HomeServiceModel> services = [
-  HomeServiceModel(
-    title: TKey.about.name,
-    icon: Icons.person,
-    onTap: (context) => context.goNamed(Routes.about.name),
-  ),
-  HomeServiceModel(
-    title: TKey.skills.name,
-    icon: Icons.code_rounded,
-    onTap: (context) {},
-  ),
-  HomeServiceModel(
-    title: TKey.education.name,
-    icon: Icons.book,
-    onTap: (context) {},
-  ),
-  HomeServiceModel(
-    title: TKey.collaborations.name,
-    icon: Icons.apartment_rounded,
-    onTap: (context) {},
-  ),
-  HomeServiceModel(
-    title: TKey.projects.name,
-    icon: Icons.work,
-    onTap: (context) {},
-  ),
-  HomeServiceModel(
-    title: TKey.contact.name,
-    icon: Icons.phone_android_rounded,
-    onTap: (context) {},
-  ),
-  HomeServiceModel(
-    title: TKey.services.name,
-    icon: Icons.design_services_rounded,
-    onTap: (context) {},
-  ),
-];
+import 'service_item.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final store = context.read<HomeUiStore>();
     return Scaffold(
       body: AdaptiveBuilder(
-        defaultBuilder: (context, screen) => _buildDesktop(context, screen),
+        defaultBuilder: (context, screen) => _buildDesktop(context, screen, store),
         layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
-          desktop: (context, screen) => _buildDesktop(context, screen),
-          tablet: (context, screen) => _buildTablet(context, screen),
-          handset: (context, screen) => _buildHandset(context, screen),
+          desktop: (context, screen) => _buildDesktop(context, screen, store),
+          tablet: (context, screen) => _buildTablet(context, screen, store),
+          handset: (context, screen) => _buildHandset(context, screen, store),
         ),
       ),
     );
@@ -84,42 +38,43 @@ class HomeScreen extends StatelessWidget {
       children: [
         XAvatar(asset: Assets.me1, size: 0.2.sh),
         const SizedBox(height: Dimens.xsPadding),
-        XText(TKey.myName.name.tr(), style: context.titleLarge),
-        XText(TKey.title.name.tr(), color: context.surfaceColor),
+        XText(TKey.myName.translated, style: context.titleLarge),
+        XText(TKey.title.translated, color: context.surfaceColor),
       ],
     );
   }
 
-  Widget _buildDesktop(BuildContext context, Screen screen) {
-    return _buildTablet(context, screen);
-  }
-
-  Widget _buildTablet(BuildContext context, Screen screen) {
-    return Column(
+  Widget _buildDesktop(BuildContext context, Screen screen, HomeUiStore store) {
+    return Row(
       children: [
-        const Spacer(),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(child: _buildImage(context).center()).expand(),
-            Container(child: _buildServices(context, screen).center()).expand(),
-          ],
-        ),
-        const Spacer(),
-        const SizedBox(height: Dimens.sPadding),
-        _buildChangeLanguage(context),
-        const SizedBox(height: Dimens.sPadding),
+        Container(
+          color: context.onPrimaryColor.withOpacity(0.05),
+          child: _buildServices(context, screen, store).center(),
+        ).expand(flex: 2),
+        Observer(builder: (context) => store.servicePage).expand(flex: 9),
       ],
     );
   }
 
-  Widget _buildHandset(BuildContext context, Screen screen) {
+  Widget _buildTablet(BuildContext context, Screen screen, HomeUiStore store) {
+    return Row(
+      children: [
+        Container(
+          color: context.onPrimaryColor.withOpacity(0.05),
+          child: _buildServices(context, screen, store).center(),
+        ).expand(flex: 3),
+        Observer(builder: (context) => store.servicePage).expand(flex: 7),
+      ],
+    );
+  }
+
+  Widget _buildHandset(BuildContext context, Screen screen, HomeUiStore store) {
     return Column(
       children: [
         const Spacer(flex: 2),
         _buildImage(context),
         const Spacer(),
-        _buildServices(context, screen),
+        _buildServices(context, screen, store),
         const Spacer(flex: 2),
         const SizedBox(height: Dimens.sPadding),
         _buildChangeLanguage(context),
@@ -128,27 +83,42 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildServices(BuildContext context, Screen screen) {
-    return ListView.separated(
-      padding: const EdgeInsets.all(Dimens.sPadding),
-      separatorBuilder: (context, index) => const SizedBox(height: Dimens.sPadding),
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemBuilder: (context, index) {
-        final service = services[index];
-        return ServiceItem(
-          title: service.title.tr(),
-          icon: service.icon,
-          onTap: () => service.onTap(context),
-        );
-      },
-      itemCount: services.length,
+  Widget _buildServices(BuildContext context, Screen screen, HomeUiStore store) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        if (!screen.isHandset) const Spacer(),
+        ListView.separated(
+          padding: const EdgeInsets.all(Dimens.sPadding),
+          separatorBuilder: (context, index) => const SizedBox(height: Dimens.sPadding),
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          itemBuilder: (context, index) {
+            final service = services[index];
+            return Observer(builder: (_) {
+              return ServiceItem(
+                title: service.type.translated,
+                icon: service.icon,
+                onTap: () => service.onTap(context),
+                isSelected: store.selectedService == service.type,
+              );
+            });
+          },
+          itemCount: services.length,
+        ),
+        if (!screen.isHandset) ...[
+          const Spacer(),
+          _buildChangeLanguage(context),
+          SizedBox(height: Dimens.sPadding.h),
+        ]
+      ],
     );
   }
 
   Widget _buildChangeLanguage(BuildContext context) {
     return SizedBox(
-      height: 50.h,
+      height: 30.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -156,12 +126,12 @@ class HomeScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => context.isRtl ? context.setLocale(const Locale('en')) : null,
-            child: Image.asset(Assets.us, width: 50.h, height: 25.h),
+            child: Image.asset(Assets.us, width: 30.h, height: 25.h),
           ),
           const SizedBox(width: Dimens.sPadding),
           GestureDetector(
             onTap: () => context.isRtl ? null : context.setLocale(const Locale('fa')),
-            child: Image.asset(Assets.ir, width: 50.h, height: 25.h),
+            child: Image.asset(Assets.ir, width: 30.h, height: 25.h),
           ),
         ],
       ),
@@ -169,87 +139,31 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class ServiceItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final VoidCallback? onTap;
-  const ServiceItem({
-    super.key,
-    required this.icon,
-    required this.title,
-    this.onTap,
-  });
+class CenterDesktopImage extends StatelessWidget {
+  const CenterDesktopImage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(XDimens.sPadding.h)),
-      child: Container(
-        decoration: BoxDecoration(
-            border: GradientBoxBorder(
-                gradient: LinearGradient(
-                    tileMode: TileMode.decal,
-                    colors: context.isRtl
-                        ? [
-                            context.onPrimaryColor.withOpacity(0.0),
-                            context.onPrimaryColor.withOpacity(0.015),
-                            context.onPrimaryColor.withOpacity(0.15),
-                            context.onPrimaryColor.withOpacity(0.25),
-                          ]
-                        : [
-                            context.onPrimaryColor.withOpacity(0.3),
-                            context.onPrimaryColor.withOpacity(0.15),
-                            context.onPrimaryColor.withOpacity(0.01),
-                            context.onPrimaryColor.withOpacity(0.0),
-                          ],
-                    stops: context.isRtl ? [0.0, 0.15, 0.6, 1.0] : const [0.0, 0.3, 0.65, 1.0])),
-            boxShadow: [
-              BoxShadow(color: context.primaryColor.withOpacity(0.02)),
-            ],
-            gradient: LinearGradient(
-              tileMode: TileMode.decal,
-              //begin: context.locale == const Locale('fa') ? Alignment.centerRight : Alignment.centerLeft,
-              //end: context.locale == const Locale('fa') ? Alignment.centerLeft : Alignment.centerRight,
-              colors: context.isRtl
-                  ? [
-                      context.onPrimaryColor.withOpacity(0.0),
-                      context.onPrimaryColor.withOpacity(0.01),
-                      context.onPrimaryColor.withOpacity(0.15),
-                      context.onPrimaryColor.withOpacity(0.3),
-                    ]
-                  : [
-                      context.onPrimaryColor.withOpacity(0.3),
-                      context.onPrimaryColor.withOpacity(0.15),
-                      context.onPrimaryColor.withOpacity(0.01),
-                      context.onPrimaryColor.withOpacity(0.0),
-                    ],
-              stops: context.isRtl ? [0.0, 0.35, 0.7, 1.0] : const [0.0, 0.3, 0.65, 1.0],
-            ),
-            borderRadius: BorderRadius.circular(Dimens.sPadding)),
-        //color: service.backgroundColor ?? context.tertiary,
-        child: XContainer(
-          color: Colors.transparent,
-          padding: const EdgeInsets.all(XDimens.sPadding).h,
-          borderColor: Colors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                color: context.primaryColor,
-                size: 24.h,
-              ),
-              const SizedBox(width: Dimens.sPadding),
-              XText(
-                title,
-                style: Screen.fromWindow().isXSmall ? context.titleMedium : context.titleSmall,
-                color: context.primaryColor,
-              ),
-            ],
-          ),
-        ),
-      ),
+    return Container(
+      color: context.onPrimaryColor.withOpacity(0.01),
+      child: const CenterImage().center(),
+    );
+  }
+}
+
+class CenterImage extends StatelessWidget {
+  const CenterImage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        XAvatar(asset: Assets.me1, size: 0.2.sh),
+        const SizedBox(height: Dimens.xsPadding),
+        XText(TKey.myName.translated, style: context.titleLarge),
+        XText(TKey.title.translated, color: context.surfaceColor),
+      ],
     );
   }
 }

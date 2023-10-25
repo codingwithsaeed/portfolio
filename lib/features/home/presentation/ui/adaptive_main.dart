@@ -1,6 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:portfolio/features/home/domain/entities/home_service_model.dart';
 import 'package:portfolio/features/home/presentation/ui/home_screen.dart';
 import 'package:x_framework/x_framework.dart';
 
@@ -34,7 +34,7 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
   Widget adaptiveLayout(BuildContext context) {
     return AdaptiveLayout(
       body: SlotLayout(config: <Breakpoint, SlotLayoutConfig>{
-        Breakpoints.small : SlotLayout.from(
+        Breakpoints.small: SlotLayout.from(
           key: const Key('Body Small'),
           builder: (context) {
             return const HomeScreen();
@@ -51,7 +51,7 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
             destinations: services
                 .map((e) => NavigationRailDestination(
                       icon: Icon(e.icon),
-                      label: XText(e.title.tr()),
+                      label: XText(e.type.translated),
                     ))
                 .toList(),
             selectedIndex: selectedIndex,
@@ -69,7 +69,7 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
               destinations: services
                   .map((e) => NavigationDestination(
                         icon: Icon(e.icon),
-                        label: e.title.tr(),
+                        label: e.type.translated,
                       ))
                   .toList(),
               currentIndex: selectedIndex,

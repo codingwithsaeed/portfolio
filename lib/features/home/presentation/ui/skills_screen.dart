@@ -4,13 +4,13 @@ import 'package:portfolio/assets.dart';
 import 'package:portfolio/features/home/presentation/ui/common_app_bar.dart';
 import 'package:x_framework/x_framework.dart';
 
-class AboutScreen extends StatelessWidget {
-  const AboutScreen({super.key});
+class SkillsScreen extends StatelessWidget {
+  const SkillsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CommonInScreen(
-      title: TKey.about.translated,
+      title: TKey.skills.translated,
       child: AdaptiveBuilder(
         defaultBuilder: (context, screen) => _buildDesktop(context, screen),
         layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
@@ -27,7 +27,7 @@ Widget _buildDesktop(BuildContext context, Screen screen) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      XCenterText(text: TKey.about.translated),
+      XCenterText(text: TKey.skills.translated),
     ],
   );
 }
@@ -36,7 +36,7 @@ Widget _buildTablet(BuildContext context, Screen screen) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      XCenterText(text: TKey.about.translated),
+      XCenterText(text: TKey.skills.translated),
     ],
   );
 }
@@ -45,7 +45,7 @@ Widget _buildHandset(BuildContext context, Screen screen) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      XCenterText(text: TKey.about.translated),
+      XCenterText(text: TKey.skills.translated),
     ],
   );
 }
