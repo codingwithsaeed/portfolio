@@ -35,6 +35,16 @@ List<HomeServiceModel> services = [
     onTap: (context) {},
   ),
   HomeServiceModel(
+    title: TKey.education.name,
+    icon: Icons.book,
+    onTap: (context) {},
+  ),
+  HomeServiceModel(
+    title: TKey.collaborations.name,
+    icon: Icons.apartment_rounded,
+    onTap: (context) {},
+  ),
+  HomeServiceModel(
     title: TKey.projects.name,
     icon: Icons.work,
     onTap: (context) {},
@@ -74,8 +84,8 @@ class HomeScreen extends StatelessWidget {
       children: [
         XAvatar(asset: Assets.me1, size: 0.2.sh),
         const SizedBox(height: Dimens.xsPadding),
-        XText(TKey.myName.translated, style: context.titleLarge),
-        XText(TKey.title.translated, color: context.surfaceColor),
+        XText(TKey.myName.name.tr(), style: context.titleLarge),
+        XText(TKey.title.name.tr(), color: context.surfaceColor),
       ],
     );
   }
@@ -188,12 +198,12 @@ class ServiceItem extends StatelessWidget {
                             context.onPrimaryColor.withOpacity(0.25),
                           ]
                         : [
-                            context.onPrimaryColor.withOpacity(0.25),
+                            context.onPrimaryColor.withOpacity(0.3),
                             context.onPrimaryColor.withOpacity(0.15),
-                            context.onPrimaryColor.withOpacity(0.015),
+                            context.onPrimaryColor.withOpacity(0.01),
                             context.onPrimaryColor.withOpacity(0.0),
                           ],
-                    stops: context.isRtl ? [0.0, 0.15, 0.6, 1.0] : const [0.0, 0.4, 0.85, 1.0])),
+                    stops: context.isRtl ? [0.0, 0.15, 0.6, 1.0] : const [0.0, 0.3, 0.65, 1.0])),
             boxShadow: [
               BoxShadow(color: context.primaryColor.withOpacity(0.02)),
             ],
@@ -214,7 +224,7 @@ class ServiceItem extends StatelessWidget {
                       context.onPrimaryColor.withOpacity(0.01),
                       context.onPrimaryColor.withOpacity(0.0),
                     ],
-              stops: context.isRtl ? [0.0, 0.15, 0.6, 1.0] : const [0.0, 0.4, 0.85, 1.0],
+              stops: context.isRtl ? [0.0, 0.35, 0.7, 1.0] : const [0.0, 0.3, 0.65, 1.0],
             ),
             borderRadius: BorderRadius.circular(Dimens.sPadding)),
         //color: service.backgroundColor ?? context.tertiary,

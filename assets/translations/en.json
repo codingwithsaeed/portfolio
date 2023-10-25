@@ -1,9 +1,11 @@
 {
-  "myName" : "Saeed Ahmadi",
-  "title" : "Software Engineer | App Developer",
-  "about" : "About Me",
-  "skills" : "Skills",
-  "projects" : "Projects",
-  "contact" : "Contact",
-  "services" : "Services"
+  "myName": "Saeed Ahmadi",
+  "title": "Software Engineer | App Developer",
+  "about": "About Me",
+  "skills": "Skills",
+  "projects": "Projects",
+  "education": "Education",
+  "contact": "Contact",
+  "collaborations": "Collaborations",
+  "services": "Services"
 }
