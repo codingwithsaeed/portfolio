@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:portfolio/assets.dart';
 import 'package:portfolio/core/extensions.dart';
 import 'package:x_framework/x_framework.dart';
@@ -14,7 +13,7 @@ abstract final class AppTheme {
 
   static ThemeData themeData(BuildContext context) {
     return ThemeData(
-      fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
+      fontFamily: context.isFarsi ? Fonts.sahel.name : Fonts.dosis.name,
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         background: primaryColor,
@@ -46,12 +45,12 @@ abstract final class AppTheme {
           if (states.contains(MaterialState.selected)) {
             return context.titleMedium.copyWith(
               color: secondaryColor,
-              fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
+              fontFamily: context.isFarsi ? Fonts.sahel.name : Fonts.dosis.name,
             );
           }
           return context.bodyMedium.copyWith(
             color: Colors.grey,
-            fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
+            fontFamily: context.isFarsi ? Fonts.sahel.name : Fonts.dosis.name,
           );
         }),
       ),
@@ -63,23 +62,23 @@ abstract final class AppTheme {
         unselectedIconTheme: const IconThemeData(color: Colors.grey),
         selectedLabelTextStyle: context.titleMedium.copyWith(
           color: secondaryColor,
-          fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
+          fontFamily: context.isFarsi ? Fonts.sahel.name : Fonts.dosis.name,
         ),
         groupAlignment: 0,
         useIndicator: true,
         labelType: NavigationRailLabelType.all,
         unselectedLabelTextStyle: context.bodyMedium.copyWith(
           color: Colors.grey,
-          fontFamily: context.isRtl ? Fonts.vazir.name : Fonts.dosis.name,
+          fontFamily: context.isFarsi ? Fonts.sahel.name : Fonts.dosis.name,
         ),
       ),
       textTheme: TextTheme(
-          bodyLarge: _bodyLarge.copyWith(fontSize: Screen.fromContext(context).screenSize.largeFontSize),
-          bodyMedium: _bodyMedium.copyWith(fontSize: Screen.fromContext(context).screenSize.mediumFontSize),
-          bodySmall: _bodySmall.copyWith(fontSize: Screen.fromContext(context).screenSize.smallFontSize),
-          titleLarge: _titleLarge.copyWith(fontSize: Screen.fromContext(context).screenSize.largeFontSize),
-          titleMedium: _titleMedium.copyWith(fontSize: Screen.fromContext(context).screenSize.mediumFontSize),
-          titleSmall: _titleSmall.copyWith(fontSize: Screen.fromContext(context).screenSize.smallFontSize)),
+          bodyLarge: _bodyLarge.copyWith(fontSize: context.screenSize.largeFontSize),
+          bodyMedium: _bodyMedium.copyWith(fontSize: context.screenSize.mediumFontSize),
+          bodySmall: _bodySmall.copyWith(fontSize: context.screenSize.smallFontSize),
+          titleLarge: _titleLarge.copyWith(fontSize: context.screenSize.largeFontSize),
+          titleMedium: _titleMedium.copyWith(fontSize: context.screenSize.mediumFontSize),
+          titleSmall: _titleSmall.copyWith(fontSize: context.screenSize.smallFontSize)),
     );
   }
 }

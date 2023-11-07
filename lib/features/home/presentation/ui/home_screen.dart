@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,11 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/assets.dart';
 import 'package:portfolio/core/dimens.dart';
-import 'package:portfolio/core/extensions.dart';
 import 'package:portfolio/core/widgets/x_image.dart';
 import 'package:portfolio/features/home/domain/entities/home_service_model.dart';
 import 'package:portfolio/features/home/presentation/store/home_ui_store.dart';
 import 'package:x_framework/x_framework.dart';
+import 'package:portfolio/core/extensions.dart';
 
 import 'service_item.dart';
 
@@ -38,8 +37,15 @@ class HomeScreen extends StatelessWidget {
       children: [
         XAvatar(asset: Assets.me1, size: 0.2.sh),
         const SizedBox(height: Dimens.xsPadding),
-        XText(TKey.myName.translated, style: context.titleLarge),
-        XText(TKey.title.translated, color: context.surfaceColor),
+        XText(context.l10n.myName,
+            style: context.titleLarge.copyWith(
+              fontWeight: FontWeight.w900,
+            )),
+        XText(
+          context.l10n.title,
+          color: context.surfaceColor,
+          style: context.titleMedium,
+        ),
       ],
     );
   }
@@ -77,7 +83,7 @@ class HomeScreen extends StatelessWidget {
         _buildServices(context, screen, store),
         const Spacer(flex: 2),
         const SizedBox(height: Dimens.sPadding),
-        _buildChangeLanguage(context),
+        _buildChangeLanguage(context, store),
         const SizedBox(height: Dimens.sPadding),
       ],
     );
@@ -98,7 +104,7 @@ class HomeScreen extends StatelessWidget {
             final service = services[index];
             return Observer(builder: (_) {
               return ServiceItem(
-                title: service.type.translated,
+                title: service.type.translate(context),
                 icon: service.icon,
                 onTap: () => service.onTap(context),
                 isSelected: store.selectedService == service.type,
@@ -109,14 +115,14 @@ class HomeScreen extends StatelessWidget {
         ),
         if (!screen.isHandset) ...[
           const Spacer(),
-          _buildChangeLanguage(context),
+          _buildChangeLanguage(context, store),
           SizedBox(height: Dimens.sPadding.h),
         ]
       ],
     );
   }
 
-  Widget _buildChangeLanguage(BuildContext context) {
+  Widget _buildChangeLanguage(BuildContext context, HomeUiStore store) {
     return SizedBox(
       height: 30.h,
       child: Row(
@@ -125,12 +131,12 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () => context.isRtl ? context.setLocale(const Locale('en')) : null,
+            onTap: () => context.isFarsi ? store.setLocale(const Locale('en')) : null,
             child: Image.asset(Assets.us, width: 30.h, height: 25.h),
           ),
           const SizedBox(width: Dimens.sPadding),
           GestureDetector(
-            onTap: () => context.isRtl ? null : context.setLocale(const Locale('fa')),
+            onTap: () => context.isFarsi ? null : store.setLocale(const Locale('fa')),
             child: Image.asset(Assets.ir, width: 30.h, height: 25.h),
           ),
         ],
@@ -161,8 +167,11 @@ class CenterImage extends StatelessWidget {
       children: [
         XAvatar(asset: Assets.me1, size: 0.2.sh),
         const SizedBox(height: Dimens.xsPadding),
-        XText(TKey.myName.translated, style: context.titleLarge),
-        XText(TKey.title.translated, color: context.surfaceColor),
+        XText(
+          context.l10n.myName,
+          style: context.titleLarge.copyWith(fontWeight: FontWeight.w900),
+        ),
+        XText(context.l10n.title, color: context.surfaceColor, style: context.titleMedium),
       ],
     );
   }

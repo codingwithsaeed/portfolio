@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/home/presentation/store/home_ui_store.dart';
@@ -11,7 +10,7 @@ import 'package:portfolio/features/home/presentation/ui/services_screen.dart';
 import 'package:portfolio/features/home/presentation/ui/skills_screen.dart';
 import 'package:portfolio/router.dart';
 import 'package:provider/provider.dart';
-
+import 'package:portfolio/core/extensions.dart';
 enum HomeServiceType {
   about,
   skills,
@@ -21,7 +20,18 @@ enum HomeServiceType {
   contact,
   services;
 
-  String get translated => name.tr();
+  String translate(BuildContext context) {
+    return switch (this) {
+      HomeServiceType.about => context.l10n.about,
+      HomeServiceType.skills => context.l10n.skills,
+      HomeServiceType.education => context.l10n.education,
+      HomeServiceType.collaborations => context.l10n.collaborations,
+      HomeServiceType.projects => context.l10n.projects,
+      HomeServiceType.contact => context.l10n.contact,
+      HomeServiceType.services => context.l10n.services,
+    };
+  }
+
   Widget get screen {
     return switch (this) {
       HomeServiceType.about => const AboutScreen(),

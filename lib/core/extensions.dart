@@ -1,11 +1,14 @@
-import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:portfolio/features/home/presentation/store/home_ui_store.dart';
+import 'package:provider/provider.dart';
 
 extension ContextExtensions on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
-  TextDirection get direction => locale == const Locale('fa') ? TextDirection.rtl : TextDirection.ltr;
-  bool get isRtl => locale == const Locale('fa');
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
+  bool get isFarsi => read<HomeUiStore>().locale == const Locale('fa');
+  ScreenSize get screenSize => Screen.fromContext(this).screenSize;
 }
 
 extension FontSize on ScreenSize {

@@ -51,7 +51,7 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
             destinations: services
                 .map((e) => NavigationRailDestination(
                       icon: Icon(e.icon),
-                      label: XText(e.type.translated),
+                      label: XText(e.type.name),
                     ))
                 .toList(),
             selectedIndex: selectedIndex,
@@ -69,7 +69,7 @@ class _AdaptiveMainScreenState extends State<AdaptiveMainScreen> {
               destinations: services
                   .map((e) => NavigationDestination(
                         icon: Icon(e.icon),
-                        label: e.type.translated,
+                        label: e.type.name,
                       ))
                   .toList(),
               currentIndex: selectedIndex,

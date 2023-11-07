@@ -14,6 +14,11 @@ abstract class _HomeUiStoreBase with Store {
   _HomeUiStoreBase(this.buildContext);
 
   @observable
+  Locale locale = const Locale('fa');
+  @action
+  void setLocale(Locale locale) => this.locale = locale;
+
+  @observable
   HomeServiceType? selectedService;
   @action
   void setSelectedService(HomeServiceType? service) => selectedService = service;

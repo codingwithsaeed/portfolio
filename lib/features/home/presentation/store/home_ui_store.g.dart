@@ -24,6 +24,22 @@ mixin _$HomeUiStore on _HomeUiStoreBase, Store {
               name: '_HomeUiStoreBase.isHandset'))
           .value;
 
+  late final _$localeAtom =
+      Atom(name: '_HomeUiStoreBase.locale', context: context);
+
+  @override
+  Locale get locale {
+    _$localeAtom.reportRead();
+    return super.locale;
+  }
+
+  @override
+  set locale(Locale value) {
+    _$localeAtom.reportWrite(value, super.locale, () {
+      super.locale = value;
+    });
+  }
+
   late final _$selectedServiceAtom =
       Atom(name: '_HomeUiStoreBase.selectedService', context: context);
 
@@ -44,6 +60,17 @@ mixin _$HomeUiStore on _HomeUiStoreBase, Store {
       ActionController(name: '_HomeUiStoreBase', context: context);
 
   @override
+  void setLocale(Locale locale) {
+    final _$actionInfo = _$_HomeUiStoreBaseActionController.startAction(
+        name: '_HomeUiStoreBase.setLocale');
+    try {
+      return super.setLocale(locale);
+    } finally {
+      _$_HomeUiStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setSelectedService(HomeServiceType? service) {
     final _$actionInfo = _$_HomeUiStoreBaseActionController.startAction(
         name: '_HomeUiStoreBase.setSelectedService');
@@ -57,6 +84,7 @@ mixin _$HomeUiStore on _HomeUiStoreBase, Store {
   @override
   String toString() {
     return '''
+locale: ${locale},
 selectedService: ${selectedService},
 servicePage: ${servicePage},
 isHandset: ${isHandset}

@@ -12,20 +12,21 @@ class CommonInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = context.read<HomeUiStore>();
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: context.onPrimaryColor.withOpacity(0.05),
-          title: XText(title),
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () {
-              store.setSelectedService(null);
-              if (store.isHandset) context.pop();
-            },
-            icon: const Icon(Icons.clear_rounded),
-          ),
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: context.onPrimaryColor.withOpacity(0.05),
+        title: XText(title, style: context.titleMedium),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            store.setSelectedService(null);
+            if (store.isHandset) context.pop();
+          },
+          icon: const Icon(Icons.clear_rounded),
         ),
-        body: child);
+      ),
+      body: child,
+    );
   }
 }

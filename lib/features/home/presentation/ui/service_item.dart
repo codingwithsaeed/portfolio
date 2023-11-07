@@ -36,7 +36,7 @@ class ServiceItem extends StatelessWidget {
                 ? GradientBoxBorder(
                     gradient: LinearGradient(
                         tileMode: TileMode.decal,
-                        colors: context.isRtl
+                        colors: context.isFarsi
                             ? [
                                 context.onPrimaryColor.withOpacity(0.0),
                                 context.onPrimaryColor.withOpacity(0.015),
@@ -49,7 +49,7 @@ class ServiceItem extends StatelessWidget {
                                 context.onPrimaryColor.withOpacity(0.01),
                                 context.onPrimaryColor.withOpacity(0.0),
                               ],
-                        stops: context.isRtl ? [0.0, 0.15, 0.6, 1.0] : const [0.0, 0.3, 0.65, 1.0]))
+                        stops: context.isFarsi ? [0.0, 0.15, 0.6, 1.0] : const [0.0, 0.3, 0.65, 1.0]))
                 : Border.all(color: context.onPrimaryColor),
             boxShadow: [
               BoxShadow(color: context.primaryColor.withOpacity(0.02)),
@@ -59,7 +59,7 @@ class ServiceItem extends StatelessWidget {
                     tileMode: TileMode.decal,
                     //begin: context.locale == const Locale('fa') ? Alignment.centerRight : Alignment.centerLeft,
                     //end: context.locale == const Locale('fa') ? Alignment.centerLeft : Alignment.centerRight,
-                    colors: context.isRtl
+                    colors: context.isFarsi
                         ? [
                             context.onPrimaryColor.withOpacity(0.0),
                             context.onPrimaryColor.withOpacity(0.01),
@@ -72,7 +72,7 @@ class ServiceItem extends StatelessWidget {
                             context.onPrimaryColor.withOpacity(0.01),
                             context.onPrimaryColor.withOpacity(0.0),
                           ],
-                    stops: context.isRtl ? [0.0, 0.35, 0.7, 1.0] : const [0.0, 0.3, 0.65, 1.0],
+                    stops: context.isFarsi ? [0.0, 0.35, 0.7, 1.0] : const [0.0, 0.3, 0.65, 1.0],
                   )
                 : null,
             borderRadius: BorderRadius.circular(XDimens.sPadding.h)),
